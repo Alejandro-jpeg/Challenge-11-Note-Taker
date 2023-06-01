@@ -5,12 +5,17 @@ const { v4: uuidv4 } = require('uuid');
 dataBase = require('../db/db.json');
 
 //API ROUTES
-//TODO: READ THE FILE
+//READS THE FILE AND RESPONDS WITH JSON DATA
 apiRouter.get('/notes', (req, res) => {
-    res.json(dataBase);
+    fs.readFile('./db/db.json', 'utf-8', (err, data) => {
+        if(err){
+            throw err; 
+        }
+        res.json(JSON.parse(data));
+    });
 });
 
-//TODO: READ THE FILE
+
 apiRouter.post('/notes', (req, res) => {
     let newNote;
     if (req.body.title && req.body.text){
