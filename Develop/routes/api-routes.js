@@ -1,7 +1,5 @@
 const apiRouter = require('express').Router();
-const { response } = require('express');
 const fs = require('fs');
-const { parse } = require('path');
 const { v4: uuidv4 } = require('uuid');
 dataBase = require('../db/db.json');
 
@@ -43,9 +41,22 @@ apiRouter.post('/notes', (req, res) => {
 });
 
 // BONUS TODO: DELETE /api/notes/:id should receive a query parameter containing the id of a note to delete. In order to delete a note, you'll need to read all notes from the db.json file, remove the note with the given id property, and then rewrite the notes to the db.json file.
-
-apiRouter.delete('notes/:id', (req, res) => {
-    
+apiRouter.delete('/notes/:id', (req, res) => {
+    if(req.params.id){
+        fs.readFile('./db/db.json', 'utf-8', (err, data) => {
+            //TODO: PARSE THE JSON
+            let parsedJson = JSON.parse(data);
+            //TODO: CREATE A NEW ARRAY FOR THE CORRECT ID
+            let FilteredArray = parsedJson.filter(note => {
+                return note.id !== req.params.id
+            })
+            fs.writeFile('./db/db.json', JSON.stringify(FilteredArray, null, 4), (err, data) => {
+            })
+            res.json(FilteredArray);
+        })
+    }else{
+        res.send('Please input a valid id');
+    }
 })
 
 
