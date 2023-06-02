@@ -50,9 +50,13 @@ apiRouter.delete('/notes/:id', (req, res) => {
             let FilteredArray = parsedJson.filter(note => {
                 return note.id !== req.params.id
             })
-            fs.writeFile('./db/db.json', JSON.stringify(FilteredArray, null, 4), (err, data) => {
+            fs.writeFile('./db/db.json', JSON.stringify(FilteredArray, null, 4), (error) => {
+                if(error){
+                    res.send('error deleting file');
+            }else{
+                res.json(FilteredArray);
+            }
             })
-            res.json(FilteredArray);
         })
     }else{
         res.send('Please input a valid id');
