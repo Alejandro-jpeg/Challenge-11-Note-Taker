@@ -40,13 +40,13 @@ apiRouter.post('/notes', (req, res) => {
     }
 });
 
-// BONUS TODO: DELETE /api/notes/:id should receive a query parameter containing the id of a note to delete. In order to delete a note, you'll need to read all notes from the db.json file, remove the note with the given id property, and then rewrite the notes to the db.json file.
+//DELETE ROUTE THAT TAKES A QUERY PARAM IN ORDER TO DELETE THAT NOTE 
 apiRouter.delete('/notes/:id', (req, res) => {
     if(req.params.id){
         fs.readFile('./db/db.json', 'utf-8', (err, data) => {
-            //TODO: PARSE THE JSON
+            //PARSING THE JSON
             let parsedJson = JSON.parse(data);
-            //TODO: CREATE A NEW ARRAY FOR THE CORRECT ID
+            //CREATING A NEW ARRAY WITH THE SELECTED ID REMOVED FROM IT
             let FilteredArray = parsedJson.filter(note => {
                 return note.id !== req.params.id
             })

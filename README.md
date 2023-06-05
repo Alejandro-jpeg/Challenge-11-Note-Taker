@@ -4,7 +4,9 @@
 
 A web application that allows the user to write and delete notes via requests to a server
 
-<!-- ADD A SCREENSHOT HERE -->
+Visit the Application: 
+
+![Screenshot](./Develop/public/assets/images/Screenshot.jpg)
 
 ## Table of Contents
 
